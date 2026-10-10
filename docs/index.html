@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kairo – The right moment, every day</title>
+<meta name="description" content="Kairo tells you the right moment to leave, so you skip the traffic and spend the time on what matters. Free Android app, no account.">
+<meta property="og:title" content="Kairo – The right moment, every day">
+<meta property="og:description" content="Know when to leave. Turn jam time into your time. Make room for the people you love.">
+<meta property="og:image" content="https://jhanilive.github.io/kairo-app/icon.png">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mist: #F2F4F8; --surface: #FFFFFF; --ink: #0C1424; --muted: #5B6475; --line: #E2E6EE;
+    --brand: #3D3BD4; --brand-soft: #E6E6FB; --sun: #FFB02E; --good: #12A066; --wait: #D97E00; --jam: #E2443F;
+    --night1: #0F1440; --night2: #3B2A78; --dusk: #C25C7E; --dawn: #FFB48A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --mist: #05070C; --surface: #121620; --ink: #F3F5F9; --muted: #A1A9B8; --line: #232937; --brand: #8F8CFF; --brand-soft: #23224A; }
+  }
+  :root[data-theme="dark"] { --mist: #05070C; --surface: #121620; --ink: #F3F5F9; --muted: #A1A9B8; --line: #232937; --brand: #8F8CFF; --brand-soft: #23224A; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--mist); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  h1, h2, h3, .num { font-family: Sora, system-ui, sans-serif; letter-spacing: -0.02em; }
+  a { color: var(--brand); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* Hero: the sunrise */
+  .hero { position: relative; overflow: hidden; color: #fff; background: linear-gradient(180deg, var(--night1) 0%, var(--night2) 38%, var(--dusk) 70%, var(--dawn) 100%); padding: 72px 0 0; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: end; }
+  .logo { display: flex; align-items: center; gap: 12px; font: 700 20px Sora, sans-serif; }
+  .logo img { width: 40px; height: 40px; border-radius: 12px; }
+  .hero h1 { font-size: clamp(44px, 7vw, 76px); line-height: 1.02; margin: 36px 0 14px; font-weight: 700; }
+  .hero p.lead { font: 300 clamp(19px, 2.4vw, 24px)/1.4 Sora, sans-serif; margin: 0 0 28px; max-width: 520px; opacity: 0.95; }
+  .cta { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #1E1A4D; text-decoration: none; font-weight: 700; font-size: 18px; padding: 16px 28px; border-radius: 999px; box-shadow: 0 10px 30px rgba(10, 8, 40, 0.25); }
+  .cta:hover { transform: translateY(-1px); }
+  .cta:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+  .meta { margin: 14px 0 0; font-size: 14px; opacity: 0.85; }
+  .sun { position: absolute; left: 50%; bottom: 80px; width: 240px; height: 240px; margin-left: -120px; border-radius: 50%; background: radial-gradient(circle, #FFE3A8 0 30%, rgba(255, 227, 168, 0.35) 46%, rgba(255, 227, 168, 0) 70%); pointer-events: none; }
+  .skyline { display: block; width: 100%; height: 90px; margin-top: 40px; position: relative; }
+  .phone { position: relative; justify-self: center; width: 280px; border-radius: 36px; overflow: hidden; border: 8px solid #0b0d18; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35); margin-bottom: -60px; background: #0b0d18; z-index: 2; }
+  .phone img { display: block; width: 100%; }
+
+  section { padding: 96px 0 0; }
+  section h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.1; margin: 0 0 12px; }
+  section .sub { color: var(--muted); font-size: 18px; max-width: 640px; margin: 0 0 36px; }
+
+  /* The idea */
+  .idea { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .card { background: var(--surface); border-radius: 24px; padding: 28px; }
+  .verdict { font: 700 40px/1.05 Sora, sans-serif; color: var(--wait); margin: 6px 0 8px; }
+  .bars { display: flex; align-items: flex-end; gap: 6px; height: 110px; margin-top: 18px; }
+  .bars span { flex: 1; border-radius: 999px; }
+  .labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .ideas { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 12px; }
+  .ideas li { display: flex; gap: 12px; align-items: flex-start; }
+  .ideas b { display: block; }
+  .ideas small { color: var(--muted); }
+  .dot { flex: none; width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; color: #fff; font-size: 16px; }
+
+  /* Features */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feat h3 { margin: 14px 0 6px; font-size: 19px; }
+  .feat p { margin: 0; color: var(--muted); font-size: 15px; }
+  .tile { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; font-size: 20px; color: #fff; }
+
+  /* Screens */
+  .shots { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+  .shots figure { margin: 0; flex: none; width: 240px; scroll-snap-align: start; }
+  .shots img { width: 100%; border-radius: 26px; border: 1px solid var(--line); display: block; background: var(--surface); }
+  .shots figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; text-align: center; }
+
+  /* Install */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  ol.steps { margin: 0; padding-left: 22px; display: grid; gap: 12px; }
+  ol.steps li::marker { font-weight: 700; color: var(--brand); }
+  .perm { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .perm li { display: flex; gap: 10px; }
+  .perm b { min-width: 118px; }
+  .note { margin-top: 16px; color: var(--muted); font-size: 14px; }
+
+  footer { margin-top: 110px; padding: 40px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+
+  @media (max-width: 820px) {
+    .hero .wrap, .idea, .split { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .phone { width: 240px; margin-bottom: -40px; }
+    section { padding-top: 72px; }
+  }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } .hero { padding-top: 48px; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .sun { animation: rise 1.8s cubic-bezier(.2, .8, .2, 1) both; }
+    @keyframes rise { from { transform: translateY(120px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sun" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <div class="logo"><img src="icon.png" alt="">Kairo</div>
+      <h1>The right moment, every day.</h1>
+      <p class="lead">Know when to leave, skip the worst traffic, and spend the time you win back on the people and things that matter.</p>
+      <a class="cta" href="https://github.com/JhaniLive/kairo-app/releases/latest/download/Kairo.apk">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5z"/></svg>
+        Download for Android
+      </a>
+      <p class="meta">Free · No account · Your data stays on your phone · <a href="https://github.com/JhaniLive/kairo-app/releases" style="color:#fff">All versions</a></p>
+    </div>
+    <div class="phone"><img src="img/today.png" alt="Kairo's Today screen at night: Head home at 9:30 PM, 28 min instead of 1 h 26 min right now, with a bar chart of departure times."></div>
+  </div>
+  <svg class="skyline" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="rgba(10,14,40,0.30)" d="M0 90V52h38V30h26v22h20V40h34v50h12V24h30v66h16V46h40V18h22v72h18V36h36v54h14V58h44V28h28v62h16V44h30V14h18v76h20V50h42V32h24v58h14V60h38V38h32v52h16V26h28v64h18V48h36V20h22v70h20V42h40V56h30v34h18V34h26v56h14V52h44V30h20v60h22V46h34v44h16V24h30v66h18V58h40V36h28v54h20V44h34v46h0z"/>
+  </svg>
+</header>
+
+<main>
+  <section aria-labelledby="idea">
+    <div class="wrap">
+      <h2 id="idea">Turn jam time into your time.</h2>
+      <p class="sub">Leaving at 6 PM can take 1 h 25 min. Leaving at 7:20 takes 28. Kairo shows you the difference, and gives that hour back to your life.</p>
+      <div class="idea">
+        <div class="card">
+          <div style="color:var(--muted);font-size:14px">Office → Home</div>
+          <div class="verdict">Wait until 7:20 PM</div>
+          <div>28 min instead of 1 h 25 min right now.</div>
+          <div class="bars" aria-label="Travel time for each departure from 6:00 to 8:15 PM; the shortest is at 7:20.">
+            <span style="height:92%;background:var(--jam)"></span><span style="height:100%;background:var(--jam)"></span><span style="height:86%;background:var(--jam)"></span><span style="height:64%;background:var(--wait)"></span><span style="height:44%;background:var(--wait)"></span><span style="height:22%;background:var(--sun)"></span><span style="height:24%;background:var(--good)"></span><span style="height:22%;background:var(--good)"></span><span style="height:20%;background:var(--good)"></span><span style="height:20%;background:var(--good)"></span>
+          </div>
+          <div class="labels"><span>6:00</span><span>6:30</span><span>7:00</span><span>7:30</span><span>8:00</span></div>
+        </div>
+        <div class="card">
+          <div style="color:var(--muted);font-size:14px">Your free 57 minutes</div>
+          <ul class="ideas">
+            <li><span class="dot" style="background:var(--brand)">🏋</span><div><b>Workout nearby</b><small>Three gyms within a kilometre.</small></div></li>
+            <li><span class="dot" style="background:var(--good)">🍛</span><div><b>Eat before you drive</b><small>Get home relaxed, not hungry.</small></div></li>
+            <li><span class="dot" style="background:#30B0C7">📞</span><div><b>Call Amma</b><small>It’s been five days.</small></div></li>
+            <li><span class="dot" style="background:var(--wait)">🌹</span><div><b>Flowers on the way</b><small>Your anniversary is in 3 days.</small></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="features">
+    <div class="wrap">
+      <h2 id="features">One calm companion for your day.</h2>
+      <p class="sub">Not another to-do app. Kairo connects your commute to the rest of your life.</p>
+      <div class="grid">
+        <div class="card feat"><div class="tile" style="background:var(--brand)">⏱</div><h3>Leave Clock</h3><p>Ten departure times on one chart. The best moment, the last safe moment, and what waiting costs.</p></div>
+        <div class="card feat"><div class="tile" style="background:var(--good)">🗓</div><h3>Plan two weeks</h3><p>Weather, sunrise, leave times, calendar, birthdays and your own plans on one timeline. Holidays and busy days built in.</p></div>
+        <div class="card feat"><div class="tile" style="background:#2F7BF6">📍</div><h3>Go anywhere</h3><p>Airport, hospital, mall: see the calm time to go, opening hours and your own notes from last time.</p></div>
+        <div class="card feat"><div class="tile" style="background:#FF375F">❤</div><h3>People who matter</h3><p>Pick people from your contacts. Kairo remembers birthdays and anniversaries and nudges you to stay close.</p></div>
+        <div class="card feat"><div class="tile" style="background:#AF52DE">🚩</div><h3>Big goals, with a coach</h3><p>“Apply for a new job”: small steps, your own reason, and a weekly check-in that helps when you’re stuck.</p></div>
+        <div class="card feat"><div class="tile" style="background:#30B0C7">📱</div><h3>Phone time</h3><p>See where your minutes go, with kind reflections and one gentle nudge when you choose a limit.</p></div>
+        <div class="card feat"><div class="tile" style="background:var(--wait)">⏰</div><h3>Real alarms</h3><p>A wake-up alarm in your Clock app, timed from tomorrow’s best leave time.</p></div>
+        <div class="card feat"><div class="tile" style="background:#5856D6">🌙</div><h3>Evening reset</h3><p>Tomorrow’s first trip, the weather and a short checklist, so mornings feel easy.</p></div>
+        <div class="card feat"><div class="tile" style="background:var(--sun)">☀</div><h3>Mood &amp; widget</h3><p>A daily check-in that shapes your suggestions, and a home-screen widget with your leave time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="shots-title">
+    <div class="wrap">
+      <h2 id="shots-title">A look inside.</h2>
+      <p class="sub">The sky in the app follows the real time of day: dawn, day, dusk and night.</p>
+      <div class="shots">
+        <figure><img src="img/today.png" alt="Today at night: head home at 9:30 PM, 28 minutes instead of 1 hour 26" loading="lazy"><figcaption>Today</figcaption></figure>
+        <figure><img src="img/leave.png" alt="Leave Clock with a bar chart of departure times and nearby ideas" loading="lazy"><figcaption>Leave Clock</figcaption></figure>
+        <figure><img src="img/plan.png" alt="Plan tab with a 14-day strip, week summary and timeline" loading="lazy"><figcaption>Plan</figcaption></figure>
+        <figure><img src="img/people.png" alt="People who matter with upcoming birthdays and gift ideas" loading="lazy"><figcaption>People</figcaption></figure>
+        <figure><img src="img/tomorrow.png" alt="Evening reset with tomorrow's leave time and a checklist" loading="lazy"><figcaption>Evening reset</figcaption></figure>
+        <figure style="width:360px"><img src="img/widget.png" alt="Home-screen widget showing leave at 7:50 AM" loading="lazy" style="border:0;background:none"><figcaption>Home-screen widget</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="split-wrap" aria-labelledby="install">
+    <div class="wrap split" id="download">
+      <div class="card">
+        <h2 id="install" style="font-size:32px">Install in a minute</h2>
+        <ol class="steps">
+          <li><a href="https://github.com/JhaniLive/kairo-app/releases/latest/download/Kairo.apk">Download Kairo.apk</a> on your Android phone.</li>
+          <li>Open it. If Android asks, allow your browser to install apps.</li>
+          <li>Tap <b>Install</b>, then open Kairo and set up your day.</li>
+        </ol>
+        <p class="note">Updates install over the old version and keep your data. Android 8 or newer.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;font-size:22px">What Kairo asks for, and why</h3>
+        <ul class="perm">
+          <li><b>Location</b><span>Plan trips from where you are. “All the time” only if you turn on trip learning, which notices when you leave or reach a saved place.</span></li>
+          <li><b>Notifications</b><span>Leave alerts, morning brief, evening reset and reminders.</span></li>
+          <li><b>Contacts</b><span>Only when you choose people from your contacts.</span></li>
+          <li><b>Calendar</b><span>Read-only, for tomorrow’s first event and holidays.</span></li>
+          <li><b>Usage access</b><span>Optional, for Phone time. App usage never leaves your phone.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Built with ♥ by Jhani · <a href="mailto:reply2jhani@gmail.com">reply2jhani@gmail.com</a></span>
+    <span><a href="privacy-policy.html">Privacy policy</a> · <a href="https://github.com/JhaniLive/kairo-app/releases">Releases</a></span>
+  </div>
+</footer>
+</body>
+</html>
