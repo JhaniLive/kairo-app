@@ -85,6 +85,7 @@
 
   .widgets { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
   .widgets figure { margin: 0; }
+  .widgets figure.wide { grid-column: 1 / -1; max-width: 560px; }
   .widgets img { width: 100%; display: block; border-radius: 28px; box-shadow: 0 18px 40px rgba(12, 20, 36, 0.18); }
   .widgets figcaption { margin-top: 14px; }
   .widgets figcaption b { display: block; font-family: Sora, sans-serif; font-size: 19px; }
@@ -164,7 +165,7 @@
         <div class="card feat"><div class="tile" style="background:var(--brand)">⏱</div><h3>Leave Clock</h3><p>Ten departure times on one chart. The best moment, the last safe moment, and what waiting costs.</p></div>
         <div class="card feat"><div class="tile" style="background:var(--good)">🗓</div><h3>Plan two weeks</h3><p>Weather, sunrise, leave times, calendar, birthdays and your own plans on one timeline. Holidays and busy days built in.</p></div>
         <div class="card feat"><div class="tile" style="background:#2F7BF6">📍</div><h3>Go anywhere</h3><p>Airport, hospital, mall: see the calm time to go, opening hours and your own notes from last time.</p></div>
-        <div class="card feat"><div class="tile" style="background:#FF375F">❤</div><h3>People who matter</h3><p>Pick people from your contacts. Kairo remembers birthdays and anniversaries and nudges you to stay close.</p></div>
+        <div class="card feat"><div class="tile" style="background:#FF375F">❤</div><h3>People who matter</h3><p>Pick people from your contacts. Gentle check-in nudges, small ideas from what they love, messages to send, and photo cards to share on WhatsApp.</p></div>
         <div class="card feat"><div class="tile" style="background:#AF52DE">🚩</div><h3>Big goals, with a coach</h3><p>“Apply for a new job”: small steps, your own reason, and a weekly check-in that helps when you’re stuck.</p></div>
         <div class="card feat"><div class="tile" style="background:#30B0C7">📱</div><h3>Phone time</h3><p>See where your minutes go, with kind reflections and one gentle nudge when you choose a limit.</p></div>
         <div class="card feat"><div class="tile" style="background:var(--wait)">⏰</div><h3>Real alarms</h3><p>A wake-up alarm in your Clock app, timed from tomorrow’s best leave time.</p></div>
@@ -177,7 +178,7 @@
   <section aria-labelledby="widgets-title">
     <div class="wrap">
       <h2 id="widgets-title">On your home screen.</h2>
-      <p class="sub">Two widgets, so the right moment and your reason are always one glance away.</p>
+      <p class="sub">Three widgets, so the right moment, your reason and the people you love are always one glance away.</p>
       <div class="widgets">
         <figure>
           <img src="img/why.png" alt="My why widget: a photo with the goal Apply for a new job, a progress bar, a line for today and a quote" loading="lazy">
@@ -186,6 +187,10 @@
         <figure>
           <img src="img/widget.png" alt="When to leave widget: Leave for Office at 7:50 AM, 38 minutes, with departure bars" loading="lazy">
           <figcaption><b>When to leave</b><span>Your best leave time and a mini Leave Clock on workdays. On free days: weather, your plans and tomorrow.</span></figcaption>
+        </figure>
+        <figure class="wide">
+          <img src="img/people-widget.png" alt="Someone who matters widget: a person, how long since you talked, and a gentle question" loading="lazy">
+          <figcaption><b>Someone who matters</b><span>Their photo and a gentle “Did you check in?” on the day it counts. One tap opens ideas, messages and a photo card for them.</span></figcaption>
         </figure>
       </div>
     </div>
